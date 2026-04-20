@@ -20,7 +20,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
 <!-- Favicon: serif K on paper with accent underline -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23f4f1ea'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-family='Georgia,serif' font-size='44' font-style='italic' fill='%231a1a1a'%3EK%3C/text%3E%3Crect x='8' y='54' width='48' height='3' fill='%23c73e1d'/%3E%3C/svg%3E" />
@@ -41,8 +41,8 @@
     --accent: #c73e1d;
     --accent-deep: #9e2f13;
 
-    --serif: "Instrument Serif", Georgia, serif;
-    --sans: "Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --serif: "Fraunces", Georgia, serif;
+    --sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     --mono: "JetBrains Mono", "Menlo", monospace;
 
     --maxw: 1320px;
@@ -149,6 +149,7 @@
     color: var(--accent);
     line-height: 1;
     margin-bottom: 40px;
+    font-variation-settings: "opsz" 144;
   }
   .section-lead {
     font-family: var(--serif);
@@ -157,6 +158,7 @@
     letter-spacing: -0.01em;
     max-width: 900px;
     margin-bottom: 60px;
+    font-variation-settings: "opsz" 144;
   }
   .section-lead em, .section-lead i { color: var(--accent); }
 
@@ -193,6 +195,8 @@
     line-height: 0.92;
     letter-spacing: -0.03em;
     margin-bottom: 20px;
+    font-variation-settings: "opsz" 144;
+    font-weight: 400;
   }
   .hero-name .italic {
     font-style: italic;
@@ -227,41 +231,61 @@
   .hero-meta-label { text-transform: uppercase; letter-spacing: 0.15em; font-size: 11px; }
   .hero-meta-value { color: var(--ink); font-size: 14px; }
 
-  .portrait-frame {
+  .hero-mark {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 28px;
+    padding-top: 40px;
+  }
+  .monogram {
     position: relative;
-    aspect-ratio: 3 / 4;
+    width: clamp(180px, 22vw, 300px);
+    aspect-ratio: 1 / 1;
+    border: 1.5px solid var(--ink);
+    display: flex; align-items: center; justify-content: center;
     background: var(--paper-deep);
-    overflow: hidden;
+    overflow: visible;
   }
-  .portrait-frame img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    filter: grayscale(8%) contrast(1.02);
-    transition: filter .4s ease, transform .6s ease;
-  }
-  .portrait-frame:hover img {
-    filter: grayscale(0) contrast(1);
-    transform: scale(1.02);
-  }
-  .portrait-frame::after {
+  .monogram::after {
     content: "";
-    position: absolute; inset: 0;
-    border: 1px solid var(--rule);
-    pointer-events: none;
+    position: absolute;
+    left: 0; right: 0;
+    bottom: -6px;
+    height: 4px;
+    background: var(--accent);
   }
-  .portrait-caption {
-    margin-top: 12px;
+  .monogram-glyph {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(140px, 18vw, 240px);
+    line-height: 1;
+    color: var(--ink);
+    font-variation-settings: "opsz" 144;
+    font-weight: 400;
+    transform: translateY(4px);
+  }
+  .monogram-caption {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-end;
+    text-align: right;
     font-family: var(--mono);
     font-size: 11px;
-    color: var(--mute);
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    display: flex; justify-content: space-between;
+    color: var(--ink-soft);
+    margin-top: 18px;
   }
+  .monogram-line { line-height: 1.5; }
+  .monogram-mute { color: var(--mute); }
 
   @media (max-width: 860px) {
     .hero-grid { grid-template-columns: 1fr; }
-    .portrait-frame { max-width: 420px; }
+    .hero-mark { align-items: flex-start; padding-top: 20px; }
+    .monogram-caption { align-items: flex-start; text-align: left; }
   }
 
   /* ===============================================
@@ -294,6 +318,8 @@
     font-size: clamp(56px, 8vw, 112px);
     line-height: 0.9;
     letter-spacing: -0.03em;
+    font-variation-settings: "opsz" 144;
+    font-weight: 400;
   }
   .stat-number .unit {
     font-size: 0.45em;
@@ -347,11 +373,17 @@
     background: var(--paper);
     overflow: hidden;
     border: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
   }
   .reach-preview img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    object-position: center top;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
   }
   .reach-label {
     font-family: var(--mono);
@@ -389,6 +421,7 @@
     line-height: 0.85;
     color: var(--accent);
     font-style: italic;
+    font-variation-settings: "opsz" 144;
   }
   .case-title-block {
     padding-top: 8px;
@@ -409,6 +442,8 @@
     font-size: clamp(34px, 4.6vw, 62px);
     line-height: 1.05;
     letter-spacing: -0.015em;
+    font-variation-settings: "opsz" 144;
+    font-weight: 400;
   }
   .case-title em, .case-title i { color: var(--accent); }
 
@@ -715,6 +750,8 @@
     max-width: 1100px;
     margin: 0 auto 60px;
     letter-spacing: -0.02em;
+    font-variation-settings: "opsz" 144;
+    font-weight: 400;
   }
   .contact-lead em { color: var(--accent); font-style: italic; }
   .contact-links {
@@ -967,13 +1004,14 @@
           </div>
         </div>
       </div>
-      <div>
-        <div class="portrait-frame">
-          <img src="portrait.jpg" alt="Кирилл Лифанов — портрет" loading="eager" />
+      <div class="hero-mark">
+        <div class="monogram">
+          <span class="monogram-glyph">K</span>
         </div>
-        <div class="portrait-caption">
-          <span>Kirill Lifanov</span>
-          <span>СПбГУ · ВШЖиМК</span>
+        <div class="monogram-caption">
+          <span class="monogram-line">Lifanov&nbsp;·&nbsp;Kirill</span>
+          <span class="monogram-line">MMXXIV&nbsp;&rarr;&nbsp;MMXXVI</span>
+          <span class="monogram-line monogram-mute">редакция &laquo;Петербургский&nbsp;дневник&raquo;</span>
         </div>
       </div>
     </div>
@@ -1103,7 +1141,7 @@
         </div>
 
         <div class="case-pull">
-          «Если на вас натравили&nbsp;<em>робота</em>, бесполезно увеличивать штат. Берите своего робота и натравливайте его в&nbsp;ответ.»
+          «Против алгоритмов нельзя воевать живыми людьми. Если вас парсят&nbsp;<em>боты</em> — пишите&nbsp;своего.»
         </div>
 
         <div>
@@ -1182,7 +1220,7 @@
         <div>
           <div class="star-block-label">Situation</div>
           <div class="star-block-text">
-            После внедрения политики brand safety (Кейс&nbsp;01) редакция попала в ресурсный голод: запрет на внешний визуал при сохранении нормы <strong>16–30&nbsp;постов за смену</strong> на каждой из 4&nbsp;площадок. Классические решения — либо раздуть штат, либо уронить охваты.
+            Перекрыв кислород судебным троллям (Кейс&nbsp;01), мы создали проблему самой редакции: брать чужие фото больше нельзя, а план в <strong>16–30&nbsp;постов на 4&nbsp;площадках</strong> остался. Выбор был простой: раздувать штат дизайнеров, смириться с падением охватов… или.
           </div>
         </div>
         <div>
@@ -1206,7 +1244,7 @@
         </div>
 
         <div class="case-pull">
-          «Любой запрет — просто смена&nbsp;<em>инструментария</em>. Нет стоковых фото? Будем генерировать свои. Быстрее и&nbsp;безопаснее.»
+          «Раздувать штат — прошлый век. Один&nbsp;<em>промпт</em> сегодня заменяет целый отдел дизайна.»
         </div>
 
         <div>
@@ -1310,13 +1348,13 @@
         <div>
           <div class="star-block-label">Situation</div>
           <div class="star-block-text">
-            Базовая вовлечённость регионального поста — <strong>20–60 реакций</strong>. Выход за эти рамки требует нестандартной упаковки инфоповода, но строго внутри правового и репутационного поля издания.
+            Средний региональный пост собирает <strong>20–60 лайков</strong> и благополучно умирает. Чтобы пробить баннерную слепоту — нужен триггер.
           </div>
         </div>
         <div>
           <div class="star-block-label">Task</div>
           <div class="star-block-text">
-            Стабильно пробивать медианные охваты без кликбейта, без репутационных рисков и без нарушения Brand Safety — упаковывать безопасные новости так, чтобы они <em>провоцировали</em> органическую дискуссию.
+            Упаковать локальную скуку в виральный формат, не скатившись в дешёвый кликбейт и не подставив редакцию репутационно или юридически.
           </div>
         </div>
       </div>
@@ -1326,16 +1364,16 @@
           <div class="star-block-label">Action</div>
           <div class="star-block-text">
             <ul>
-              <li><strong>Анализ повестки:</strong> вычленяю локальные сюжеты с потенциалом для эмоционального отклика — абсурд, эмпатия, социальные триггеры.</li>
-              <li><strong>Архитектура заголовка:</strong> смысловые контрасты, ирония и инверсия ожиданий вместо канцелярита и сухих констатаций.</li>
-              <li><strong>Вовлекающие механики:</strong> просьбы к аудитории делиться фото/видео, авторский ироничный комментарий после новости для запуска дискуссии.</li>
-              <li><strong>Модерация треда:</strong> жёсткий контроль развития обсуждения, отсечение токсичности и спама, удержание органики.</li>
+              <li><strong>Поиск триггера:</strong> вытаскиваю из скучных пресс-релизов абсурд, конфликт или живую эмоцию.</li>
+              <li><strong>Сборка заголовка:</strong> бью по болям аудитории. Никакого канцелярита — только ирония и смысловой контраст.</li>
+              <li><strong>Провокация дискуссии:</strong> кидаю в комменты открытый вопрос или ироничный тейк, запуская цепную реакцию.</li>
+              <li><strong>Зачистка треда:</strong> жёстко режу спам и откровенный неадекват, оставляя только чистую органическую вовлечённость.</li>
             </ul>
           </div>
         </div>
 
         <div class="case-pull">
-          «705 тысяч просмотров на локальной новости — не магия алгоритмов, а расчёт на&nbsp;<em>эмоцию</em>. Фраза «Папа, держись» запустила в комментариях вечный спор о декрете. VK увидел живую дискуссию и вынес пост в рекомендации.»
+          «Виральность — это не удача, это&nbsp;<em>социальная инженерия</em>. Два слова в заголовке столкнули лбами разные аудитории. Люди начали яростно спорить в комментах, а алгоритмы VK сами вынесли нас в топ.»
         </div>
 
         <div>
@@ -1399,9 +1437,9 @@
 <section id="toolbox">
   <div class="container">
     <div class="section-number">№&nbsp;02 · Toolbox</div>
-    <div class="section-label">Инструменты на&nbsp;руках</div>
+    <div class="section-label">Технический стек</div>
     <p class="section-lead">
-      Что реально использую в ежедневной работе. Без <em>buzz-словаря</em> — только то, чем закрываю задачи.
+      Только тот софт и механики, которыми я каждый день решаю реальные проблемы бизнеса. Без&nbsp;<em>модных слов</em> ради объёма.
     </p>
 
     <div class="toolbox-grid">
